@@ -25,3 +25,5 @@ const analytics = getAnalytics(app);
 
 export const firebaseAuth = getAuth(app);
 export const firebaseDB = getFirestore(app);
+
+export const useRef = collection(firebaseDB, "users");
