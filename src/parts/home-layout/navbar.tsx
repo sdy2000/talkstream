@@ -1,6 +1,15 @@
-import ThemeButton from "@/components/theme-button";
+import { BiSolidUser } from "react-icons/bi";
+
+import { useAppDispatch, useAppSelector } from "@/context/hooks";
+import { DropdownMenu } from "./components";
+import { ThemeButton } from "@/components";
+import { closeModal, openModal } from "@/context/slices";
 
 const navbar = () => {
+  const dispatch = useAppDispatch();
+  const userInfo = useAppSelector((store) => store.auth.userInfo);
+  const { isOpen, modalId } = useAppSelector((store) => store.modal);
+
   return (
     <nav className="bg-p border-gray-200">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -14,70 +23,34 @@ const navbar = () => {
             Flowbite
           </span>
         </a>
-        <div className="flex items-center gap-4 md:order-2">
+        <div className="flex items-center gap-6 md:gap-4 md:order-2">
           <ThemeButton />
-          <button
-            type="button"
-            className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-            id="user-menu-button"
-            aria-expanded="false"
-            data-dropdown-toggle="user-dropdown"
-            data-dropdown-placement="bottom"
-          >
-            <span className="sr-only">Open user menu</span>
-            {/* <img
-              className="w-8 h-8 rounded-full"
-              src="/docs/images/people/profile-picture-3.jpg"
-              alt="user photo"
-            /> */}
-            user imag
-          </button>
+          {userInfo?.photoURL ? (
+            <button
+              type="button"
+              className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+              id="user-menu-button"
+              aria-expanded="false"
+              data-dropdown-toggle="user-dropdown"
+              data-dropdown-placement="bottom"
+              onClick={() =>
+                modalId === "user_info"
+                  ? dispatch(closeModal())
+                  : dispatch(openModal("user_info"))
+              }
+            >
+              <span className="sr-only">Open user menu</span>
+              <img
+                className="w-8 h-8 rounded-full"
+                src={userInfo?.photoURL}
+                alt="user photo"
+              />
+            </button>
+          ) : (
+            <BiSolidUser />
+          )}
           {/* <!-- Dropdown menu --> */}
-          <div
-            className="z-50 hidden my-4 text-base list-none bg-p divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
-            id="user-dropdown"
-          >
-            <div className="px-4 py-3">
-              <span className="block text-sm text-s text-p">Bonnie Green</span>
-              <span className="block text-sm  text-gray-500 truncate dark:text-gray-400">
-                name@flowbite.com
-              </span>
-            </div>
-            <ul className="py-2" aria-labelledby="user-menu-button">
-              <li>
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-sm text-s hover:bg-t dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                >
-                  Dashboard
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-sm text-s hover:bg-t dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                >
-                  Settings
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-sm text-s hover:bg-t dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                >
-                  Earnings
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block px-4 py-2 text-sm text-s hover:bg-t dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                >
-                  Sign out
-                </a>
-              </li>
-            </ul>
-          </div>
+          {modalId === "user_info" && isOpen && <DropdownMenu />}
           <button
             data-collapse-toggle="navbar-user"
             type="button"

@@ -1,4 +1,8 @@
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithPopup,
+} from "firebase/auth";
 import { addDoc, getDocs, query, where } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
@@ -12,6 +16,11 @@ import { setUser } from "@/context/slices";
 const login = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
+  onAuthStateChanged(firebaseAuth, (currentUser) => {
+    if (currentUser) navigate("/");
+  });
+
   const login = async () => {
     const provider = new GoogleAuthProvider();
     const {

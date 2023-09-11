@@ -1,11 +1,11 @@
 import { getInitialTheme } from "@/utils";
 import { createSlice } from "@reduxjs/toolkit";
 
-interface ThemeState {
+interface themeState {
   theme: string;
 }
 
-const initialState: ThemeState = (() => {
+const initialState: themeState = (() => {
   if (localStorage.getItem("theme") === null) {
     localStorage.setItem(
       "theme",
@@ -15,7 +15,7 @@ const initialState: ThemeState = (() => {
     );
   }
 
-  return JSON.parse(localStorage.getItem("theme") || "") as ThemeState;
+  return JSON.parse(localStorage.getItem("theme") || "") as themeState;
 })();
 
 const themeSlice = createSlice({
