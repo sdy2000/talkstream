@@ -1,86 +1,158 @@
+import ThemeButton from "@/components/theme-button";
+
 const navbar = () => {
   return (
-    <div>
-      {/* <!--horizontal navigations--> */}
-      <div className="p-4 pb-0 mx-auto flex flex-wrap bg-s">
-        <div className="p-4 w-full bg-p">
-          {/* <!--dark mode - without text - icons only--> */}
-          <div className="p-2 text-s bg-s rounded-lg shadow-lg ">
-            <span className="px-2 mr-2 border-r">
-              {/* <img
-                src="https://www.freepnglogos.com/uploads/spotify-logo-png/file-spotify-logo-png-4.png"
-                alt="alt placeholder"
-                className="w-8 h-8 -mt-1 inline mx-auto"
-              /> */}
-              Logo
-            </span>
-            <span className="px-1 hover:text-p cursor-pointer">
-              <i className="fas fa-stream p-2 bg-p rounded-full"></i>
-              <span className="mx-1">categories</span>
-            </span>
-            <span className="px-1 hover:text-p cursor-pointer">
-              <i className="fas fa-search p-2 bg-p rounded-full"></i>
-              <span className="mx-1">menu</span>
-            </span>
-            <span className="px-1 hover:text-p cursor-pointer">
-              <i className="fas fa-th p-2 bg-p rounded-full"></i>
-            </span>
-            <span className="px-1 hover:text-p cursor-pointer">
-              <i className="w-8 fas fa-calendar-alt p-2 bg-p rounded-full"></i>
-            </span>
-            <span className="px-1 hover:text-p cursor-pointer w-8 relative">
-              <i className="fas fa-bell p-2 bg-p rounded-full"></i>
-              <span className="absolute right-0 top-0 -mt-2 -mr-1 text-xs bg-red-500 text-p font-medium px-2 shadow-lg rounded-full">
-                3
+    <nav className="bg-p border-gray-200">
+      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <a href="https://flowbite.com/" className="flex items-center">
+          <img
+            src="https://flowbite.com/docs/images/logo.svg"
+            className="h-8 mr-3"
+            alt="Flowbite Logo"
+          />
+          <span className="self-center text-2xl font-semibold whitespace-nowrap text-p">
+            Flowbite
+          </span>
+        </a>
+        <div className="flex items-center gap-4 md:order-2">
+          <ThemeButton />
+          <button
+            type="button"
+            className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+            id="user-menu-button"
+            aria-expanded="false"
+            data-dropdown-toggle="user-dropdown"
+            data-dropdown-placement="bottom"
+          >
+            <span className="sr-only">Open user menu</span>
+            {/* <img
+              className="w-8 h-8 rounded-full"
+              src="/docs/images/people/profile-picture-3.jpg"
+              alt="user photo"
+            /> */}
+            user imag
+          </button>
+          {/* <!-- Dropdown menu --> */}
+          <div
+            className="z-50 hidden my-4 text-base list-none bg-p divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
+            id="user-dropdown"
+          >
+            <div className="px-4 py-3">
+              <span className="block text-sm text-s text-p">Bonnie Green</span>
+              <span className="block text-sm  text-gray-500 truncate dark:text-gray-400">
+                name@flowbite.com
               </span>
-            </span>
-            <span className="hover:text-p cursor-pointer w-10 relative float-right mr-3">
-              <i className="fas fa-user p-2 bg-p rounded-full"></i>
-              <span className="absolute right-0 top-0 -mt-1 -mr-1 text-xs bg-yellow-500 text-black font-medium px-2 rounded-full">
-                3
-              </span>
-            </span>
+            </div>
+            <ul className="py-2" aria-labelledby="user-menu-button">
+              <li>
+                <a
+                  href="#"
+                  className="block px-4 py-2 text-sm text-s hover:bg-t dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                >
+                  Dashboard
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="block px-4 py-2 text-sm text-s hover:bg-t dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                >
+                  Settings
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="block px-4 py-2 text-sm text-s hover:bg-t dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                >
+                  Earnings
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="block px-4 py-2 text-sm text-s hover:bg-t dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                >
+                  Sign out
+                </a>
+              </li>
+            </ul>
           </div>
+          <button
+            data-collapse-toggle="navbar-user"
+            type="button"
+            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-t focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            aria-controls="navbar-user"
+            aria-expanded="false"
+          >
+            <span className="sr-only">Open main menu</span>
+            <svg
+              className="w-5 h-5"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 17 14"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M1 1h15M1 7h15M1 13h15"
+              />
+            </svg>
+          </button>
+        </div>
+        <div
+          className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
+          id="navbar-user"
+        >
+          <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-t rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-p dark:bg-gray-800 md dark:border-gray-700">
+            <li>
+              <a
+                href="#"
+                className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
+                aria-current="page"
+              >
+                Home
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                className="block py-2 pl-3 pr-4 text-s rounded hover:bg-t md:hover:bg-transparent md:hover:text-blue-700 md:p-0 text-p md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+              >
+                About
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                className="block py-2 pl-3 pr-4 text-s rounded hover:bg-t md:hover:bg-transparent md:hover:text-blue-700 md:p-0 text-p md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+              >
+                Services
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                className="block py-2 pl-3 pr-4 text-s rounded hover:bg-t md:hover:bg-transparent md:hover:text-blue-700 md:p-0 text-p md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+              >
+                Pricing
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                className="block py-2 pl-3 pr-4 text-s rounded hover:bg-t md:hover:bg-transparent md:hover:text-blue-700 md:p-0 text-p md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+              >
+                Contact
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
-      {/* <!--vertical navigations--> */}
-      <div className="p-4 pt-0 mx-auto flex-wrap w-96 hidden">
-        {/* <!--dark mode - wide side navigation--> */}
-        <div className="w-full py-4 px-2 text-s bg-s rounded-lg text-left capitalize font-medium shadow-lg">
-          {/* <img
-            src="https://www.freepnglogos.com/uploads/spotify-logo-png/file-spotify-logo-png-4.png"
-            alt="alt placeholder"
-            className="w-8 h-8 mx-auto mb-5 "
-          /> */}
-          Logo
-          <span className="cursor-pointer px-2 py-1 hover:bg-p hover:text-gray-300 rounded block mb-5">
-            <i className="w-8 fas fa-stream p-2 bg-p rounded-full"></i>
-            <span className="mx-2">categories</span>
-          </span>
-          <span className="cursor-pointer px-2 py-1 hover:bg-p hover:text-gray-300 rounded block mb-5">
-            <i className="w-8 fas fa-search p-2 bg-p rounded-full"></i>
-            <span className="mx-2">search</span>
-          </span>
-          <span className="cursor-pointer px-2 py-1 hover:bg-p hover:text-gray-300 rounded block mb-5">
-            <span className="w-8 mb-5 relative">
-              <i className="w-8 fas fa-user p-2 bg-p rounded-full"></i>
-              <span className="absolute right-0 top-0 -mt-2 -mr-1 text-xs bg-yellow-500 text-black font-medium px-2 rounded-full">
-                3
-              </span>
-            </span>
-            <span className="mx-2">sign ups</span>
-          </span>
-          <span className="cursor-pointer px-2 py-1 hover:bg-p hover:text-gray-300 rounded block mb-5">
-            <i className="w-8 fas fa-th p-2 bg-p rounded-full"></i>
-            <span className="mx-2">menu</span>
-          </span>
-          <span className="cursor-pointer px-2 py-1 hover:bg-p hover:text-gray-300 rounded block mb-5">
-            <i className="w-8 fas fa-calendar-alt p-2 bg-p rounded-full"></i>
-            <span className="mx-2">calendar</span>
-          </span>
-        </div>
-      </div>
-    </div>
+    </nav>
   );
 };
 export default navbar;

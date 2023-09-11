@@ -6,13 +6,16 @@ import { FcGoogle } from "react-icons/fc";
 
 import Animation from "@/assets/files/animation.gif";
 import { firebaseAuth, useRef } from "@/services";
+import { useAppDispatch } from "@/context/hooks";
+import { setUser } from "@/context/slices";
 
 const login = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const login = async () => {
     const provider = new GoogleAuthProvider();
     const {
-      user: { displayName, email, uid },
+      user: { uid, displayName, email, photoURL },
     } = await signInWithPopup(firebaseAuth, provider);
 
     if (email) {
@@ -23,9 +26,11 @@ const login = () => {
           uid,
           name: displayName,
           email,
+          photoURL,
         });
       }
     }
+    dispatch(setUser({ uid, name: displayName, email, photoURL }));
     navigate("/");
   };
   return (
