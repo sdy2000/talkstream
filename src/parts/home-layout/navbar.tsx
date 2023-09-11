@@ -7,11 +7,12 @@ const navbar = () => {
           {/* <!--dark mode - without text - icons only--> */}
           <div className="p-2 text-s bg-s rounded-lg shadow-lg ">
             <span className="px-2 mr-2 border-r">
-              <img
+              {/* <img
                 src="https://www.freepnglogos.com/uploads/spotify-logo-png/file-spotify-logo-png-4.png"
                 alt="alt placeholder"
                 className="w-8 h-8 -mt-1 inline mx-auto"
-              />
+              /> */}
+              Logo
             </span>
             <span className="px-1 hover:text-p cursor-pointer">
               <i className="fas fa-stream p-2 bg-p rounded-full"></i>
@@ -46,11 +47,12 @@ const navbar = () => {
       <div className="p-4 pt-0 mx-auto flex flex-wrap w-96 hidden">
         {/* <!--dark mode - wide side navigation--> */}
         <div className="w-full py-4 px-2 text-s bg-s rounded-lg text-left capitalize font-medium shadow-lg">
-          <img
+          {/* <img
             src="https://www.freepnglogos.com/uploads/spotify-logo-png/file-spotify-logo-png-4.png"
             alt="alt placeholder"
             className="w-8 h-8 mx-auto mb-5 "
-          />
+          /> */}
+          Logo
           <span className="cursor-pointer px-2 py-1 hover:bg-p hover:text-gray-300 rounded block mb-5">
             <i className="w-8 fas fa-stream p-2 bg-p rounded-full"></i>
             <span className="mx-2">categories</span>
