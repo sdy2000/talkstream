@@ -44,7 +44,7 @@ const navbar = () => {
         </div>
       </div>
       {/* <!--vertical navigations--> */}
-      <div className="p-4 pt-0 mx-auto flex flex-wrap w-96 hidden">
+      <div className="p-4 pt-0 mx-auto flex-wrap w-96 hidden">
         {/* <!--dark mode - wide side navigation--> */}
         <div className="w-full py-4 px-2 text-s bg-s rounded-lg text-left capitalize font-medium shadow-lg">
           {/* <img

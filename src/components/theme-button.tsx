@@ -1,5 +1,5 @@
-import { BsFillMoonFill, BsFillSunFill } from "react-icons/bs";
-import { useDispatch, useSelector } from "react-redux";
+// import { BsFillMoonFill, BsFillSunFill } from "react-icons/bs";
+import { useDispatch } from "react-redux";
 import { chengTheme } from "@/context/slices";
 
 function ThemeButton() {
