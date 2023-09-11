@@ -4,8 +4,6 @@ interface authInitialState {}
 
 const initialState: authInitialState = {};
 
-type Props = {};
-
 const AuthSlice = createSlice({
   name: "auth",
   initialState,

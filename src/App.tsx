@@ -1,5 +1,18 @@
+import { Login, Dashboard } from "@/pages";
+
+import { Routes, Route } from "react-router-dom";
+import { HomeLayout } from "./layouts";
+
 function App() {
-  return <div className="text-4xl text-red-500">App</div>;
+  return (
+    <Routes>
+      <Route element={<HomeLayout />}>
+        <Route path="*" element={<Dashboard />} />
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/login" element={<Login />} />
+      </Route>
+    </Routes>
+  );
 }
 
 export default App;

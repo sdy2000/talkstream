@@ -1,3 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Montserrat:wght@700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  /*============================ Base ============================*/
+  /*--------------- Dark & Light ----------------*/
+  .bg-p {
+    @apply bg-lbp dark:bg-dbp;
+  }
+  .bg-s {
+    @apply bg-lbs dark:bg-dbs;
+  }
+  .bg-t {
+    @apply bg-lbt dark:bg-dbt;
+  }
+  .bg-f {
+    @apply bg-dfp dark:bg-lfp;
+  }
+  .text-p {
+    @apply text-lfp dark:text-dfp;
+  }
+  .text-s {
+    @apply text-lfs dark:text-dfs;
+  }
+  .text-t {
+    @apply text-lft dark:text-dft;
+  }
+}
+
+body {
+  font-family: "DM Sans", sans-serif;
+  @apply bg-s -z-50;
+  font-weight: 600;
+}

@@ -28,7 +28,7 @@ const themeSlice = createSlice({
       localStorage.setItem("theme", JSON.stringify(state));
     },
   },
-  extraReducers: (builder) => {},
+  // extraReducers: (builder) => {},
 });
 
 export const { chengTheme } = themeSlice.actions;
