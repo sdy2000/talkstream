@@ -47,7 +47,9 @@ const navbar = () => {
               />
             </button>
           ) : (
-            <BiSolidUser />
+            <span className="text-2xl text-p">
+              <BiSolidUser />
+            </span>
           )}
           {/* <!-- Dropdown menu --> */}
           {modalId === "user_info" && isOpen && <DropdownMenu />}
