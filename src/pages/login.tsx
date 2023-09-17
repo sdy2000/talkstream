@@ -7,6 +7,7 @@ import { addDoc, getDocs, query, where } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
 import { FcGoogle } from "react-icons/fc";
+import TalkStream from "@/assets/files/TalkStream.png";
 
 import Animation from "@/assets/files/animation.gif";
 import { firebaseAuth, useRef } from "@/services";
@@ -44,13 +45,17 @@ const login = () => {
   };
   return (
     <div className="container flex justify-center items-center py-20">
-      <div className="flex flex-col lg:flex-row justify-between items-center gap-6 px-8 py-10 lg:py-0 bg-p rounded-lg shadow-lg dark:shadow-black">
+      <div className="flex flex-col lg:flex-row justify-between items-center lg:gap-6 px-8 py-10 lg:py-0 bg-p rounded-lg shadow-lg dark:shadow-black">
         <div className="">
           <img src={Animation} alt="Animation" />
         </div>
         <div className="flex flex-col justify-center items-center gap-5">
-          <h1 className="text-4xl font-extrabold">Logo</h1>
-          <h3 className="text-2xl font-extrabold font-sans">
+          <img
+            className="w-40 h-32 object-cover"
+            src={TalkStream}
+            alt="TalkStream"
+          />
+          <h3 className="text-2xl text-p font-extrabold font-sans">
             One Platform to <span className="text-blue-600">connect</span>
           </h3>
           <button

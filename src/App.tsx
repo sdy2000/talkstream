@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import { HomeLayout } from "@/layouts";
 import { useAppSelector } from "./context/hooks";
 import { changeTheme } from "@/hooks";
-import { Login, Dashboard } from "@/pages";
+import { Login, Dashboard, OneOnOneMeeting } from "@/pages";
 
 function App() {
   //#region Theme Changer
@@ -23,6 +23,7 @@ function App() {
         <Route path="*" element={<Dashboard />} />
         <Route path="/" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/one-on-one" element={<OneOnOneMeeting />} />
       </Route>
     </Routes>
   );
