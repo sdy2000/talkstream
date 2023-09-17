@@ -5,19 +5,21 @@ type Props = {
   type: string;
   name: string;
   id: string;
+  title: string;
   placeholder: string;
-  onChange: () => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value: string | number;
-  maxLength: number;
+  maxLength?: number;
   isRequired?: boolean;
   hasIcon?: boolean;
-  errors: string;
+  errors?: string;
 };
 
 const MeetingInput = ({
-  type,
+  type = "text",
   name,
   id,
+  title,
   placeholder,
   onChange,
   value,
@@ -45,7 +47,7 @@ const MeetingInput = ({
           selectInput ? " text-blue-600" : " text-p"
         }`}
       >
-        Meeting Name
+        {title}
       </label>
       <div className="flex flex-col">
         <span className="flex justify-between items-center gap-4 pr-3 bg-p rounded-lg shadow-lg border border-dbt">
@@ -59,35 +61,40 @@ const MeetingInput = ({
             id={id}
             placeholder={placeholder}
             onChange={onChange}
-            type={type}
+            type={isShowPass ? "text" : type}
             maxLength={maxLength}
             required={isRequired}
             value={value}
           />
-          <span className="text-p text-3xl">
-            {hasIcon &&
-              (!isShowPass ? (
-                <BsEye
-                  onClick={() => {
-                    setIsShowPass(true);
-                  }}
-                />
-              ) : (
-                <BsEyeSlash
-                  onClick={() => {
-                    setIsShowPass(false);
-                  }}
-                />
-              ))}
+          <span
+            className={`text-p text-3xl ${hasIcon ? "visible" : "invisible"}`}
+          >
+            {!isShowPass ? (
+              <BsEye
+                onClick={() => {
+                  setIsShowPass(true);
+                }}
+              />
+            ) : (
+              <BsEyeSlash
+                onClick={() => {
+                  setIsShowPass(false);
+                }}
+              />
+            )}
           </span>
         </span>
         <span
           className={`self-start border-blue-600 duration-300 ${
-            selectInput ? " border-[1px] w-full" : " w-0"
+            selectInput
+              ? " visible border-[1px] w-full"
+              : " invisible border-[1px] w-0"
           }`}
         ></span>
       </div>
-      {errors !== "" && <p className="text-red-600">{errors}</p>}
+      <p className={`text-red-600 ${errors !== "" ? "visible" : "invisible"}`}>
+        {errors}
+      </p>
     </div>
   );
 };
