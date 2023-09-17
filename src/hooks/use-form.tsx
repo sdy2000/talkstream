@@ -11,7 +11,9 @@ type FormHook<ModelType extends Model> = {
   setErrors: React.Dispatch<
     React.SetStateAction<Record<keyof ModelType, string>>
   >;
-  handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleInputChange: (
+    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
+  ) => void;
 };
 
 export default function useForm<ModelType extends Model>(
@@ -22,7 +24,9 @@ export default function useForm<ModelType extends Model>(
     getFreshModelObject()
   );
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setValues((prevValues) => ({
       ...prevValues,
