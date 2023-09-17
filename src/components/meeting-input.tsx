@@ -38,8 +38,8 @@ const MeetingInput = ({
       className="flex flex-col justify-start gap-2"
       onMouseEnter={() => setMouseOn(true)}
       onMouseLeave={() => {
-        setMouseOn(false);
         !focusInput && setSelectInput(false);
+        setMouseOn(false);
       }}
     >
       <label
@@ -56,7 +56,9 @@ const MeetingInput = ({
             onFocus={() => {
               setSelectInput(true), setFocusInput(true);
             }}
-            onBlur={() => !mouseOn && setSelectInput(false)}
+            onBlur={() => {
+              setFocusInput(false), !mouseOn && setSelectInput(false);
+            }}
             name={name}
             id={id}
             placeholder={placeholder}
