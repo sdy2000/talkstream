@@ -1,4 +1,4 @@
-export interface UesrType {
+export interface UserType {
   uid: string;
   email: string;
   name: string;

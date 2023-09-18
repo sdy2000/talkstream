@@ -29,16 +29,6 @@ const MeetingSelect = ({
   const [focusInput, setFocusInput] = useState<boolean>(false);
   const [mouseOn, setMouseOn] = useState<boolean>(false);
 
-  const handleFocus = () => {
-    setSelectInput(true);
-    setFocusInput(true);
-  };
-
-  const handleBlur = () => {
-    setFocusInput(false);
-    !mouseOn && setSelectInput(false);
-  };
-
   return (
     <div
       className="flex flex-col justify-start gap-2 w-72 md:w-96 h-20"
@@ -58,8 +48,14 @@ const MeetingSelect = ({
       <div className="flex flex-col w-full h-full">
         <select
           className="bg-p rounded-lg shadow-lg border border-dbt text-p placeholder:text-t outline-none bg-p px-3 py-2"
-          onFocus={handleFocus}
-          onBlur={handleBlur}
+          onFocus={() => {
+            setSelectInput(true);
+            setFocusInput(true);
+          }}
+          onBlur={() => {
+            setFocusInput(false);
+            !mouseOn && setSelectInput(false);
+          }}
           name={name}
           id={id}
           placeholder={placeholder}
@@ -67,7 +63,9 @@ const MeetingSelect = ({
           required={isRequired}
           value={value}
         >
-          <option value={0}>{firstOption}</option>
+          <option hidden defaultValue={0}>
+            {firstOption}
+          </option>
           {children}
         </select>
 

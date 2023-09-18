@@ -1,13 +1,13 @@
 import { MeetingInput, MeetingSelect } from "@/components";
-import { useForm } from "@/hooks";
+import { useFetchUsers, useForm } from "@/hooks";
 
 const getMeetingModel = () => ({
-  meetingName: "",
-  text: "",
+  meeting_name: "",
+  select_user: "",
 });
 
 const OneOnOneMeeting = () => {
-  // const [users] = useFetchUsers();
+  const [users] = useFetchUsers();
   const {
     values,
     errors,
@@ -15,33 +15,39 @@ const OneOnOneMeeting = () => {
     handleInputChange,
   } = useForm(getMeetingModel);
 
-  console.log(values);
-
   return (
     <div className="flex flex-col gap-3 justify-center items-center py-20">
       <MeetingInput
         type="text"
-        name="meetingName"
-        id="meetingName"
+        name="meeting_name"
+        id="meeting_name"
         title="Meeting Name"
         placeholder={"Meeting Name..."}
         onChange={handleInputChange}
-        value={values.meetingName}
-        errors={errors.meetingName}
+        value={values.meeting_name}
+        errors={errors.meeting_name}
       />
       <MeetingSelect
-        name="text"
-        id="text"
-        title="Name"
-        placeholder={"Name..."}
+        name="select_user"
+        id="select_user"
+        title="Invite User"
+        placeholder="Invite User"
         onChange={handleInputChange}
-        value={values.text}
-        errors={errors.text}
-        firstOption="select"
+        value={values.select_user}
+        errors={errors.select_user}
+        firstOption="Select a User"
       >
-        <option value={100}>Select a </option>
-        <option value={1000}>Select a userfgfg</option>
-        <option value={1000}>Select a dsfvdsgfdsgd</option>
+        {users.length === 0 ? (
+          <option className="text-s py-1" value={1} disabled>
+            There aren't any options available{" "}
+          </option>
+        ) : (
+          users.map((user, idx) => (
+            <option value={user.uid} key={idx}>
+              {user.name}
+            </option>
+          ))
+        )}
       </MeetingSelect>
     </div>
   );
