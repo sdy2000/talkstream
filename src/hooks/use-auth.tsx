@@ -11,7 +11,7 @@ const useAuth = () => {
 
   //Check user for Log in
   useEffect(() => {
-    const unsubsucribe = onAuthStateChanged(firebaseAuth, (currentUser) => {
+    const unSub = onAuthStateChanged(firebaseAuth, (currentUser) => {
       if (!currentUser) navigate("/login");
       else {
         dispatch(
@@ -25,30 +25,7 @@ const useAuth = () => {
       }
     });
 
-    return () => unsubsucribe();
+    return () => unSub();
   }, [navigate, dispatch]);
-
-  // TODO: Check user for Valid information
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     if (userInfo !== undefined) {
-  //       const firestoryQuery = query(useRef, where("uid", "==", userInfo.uid));
-  //       const fetchedUsers = await getDocs(firestoryQuery);
-
-  //       console.log(fetchedUsers.docs.length);
-
-  //       if (fetchedUsers.docs.length === 0) {
-  //         dispatch(setUser(undefined));
-  //         navigate("/login");
-  //       }
-  //     }
-  //     if (userInfo === undefined) {
-  //       dispatch(setUser(undefined));
-  //       navigate("/login");
-  //     }
-  //   };
-  //
-  //   fetchData();
-  // }, [userInfo]);
 };
 export default useAuth;

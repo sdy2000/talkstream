@@ -1,4 +1,4 @@
-import { MeetingCard } from "./components";
+import { MeetingCard } from "@/components";
 import dashboard1 from "@/assets/files/dashboard1.png";
 import dashboard2 from "@/assets/files/dashboard2.png";
 import dashboard3 from "@/assets/files/dashboard3.png";

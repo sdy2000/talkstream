@@ -2,6 +2,7 @@ import { useAppDispatch, useAppSelector } from "@/context/hooks";
 import { closeModal, signOutUser } from "@/context/slices";
 import { firebaseAuth } from "@/services";
 import { signOut } from "firebase/auth";
+import { Link } from "react-router-dom";
 
 const DropdownMenu = () => {
   const dispatch = useAppDispatch();
@@ -26,28 +27,28 @@ const DropdownMenu = () => {
       </div>
       <ul className="py-2" aria-labelledby="user-menu-button">
         <li>
-          <a
-            href="#"
+          <Link
+            to={"/dashboard"}
             className="block px-4 py-2 text-sm text-s hover:bg-t text-p"
           >
             Dashboard
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href="#"
+          <Link
+            to={"#"}
             className="block px-4 py-2 text-sm text-s hover:bg-t text-p"
           >
             Settings
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href="#"
+          <Link
+            to={"#"}
             className="block px-4 py-2 text-sm text-s hover:bg-t text-p"
           >
             Earnings
-          </a>
+          </Link>
         </li>
         <li>
           <button

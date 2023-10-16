@@ -1,9 +1,11 @@
-import { MeetingInput, MeetingSelect } from "@/components";
+import { MeetingDate, MeetingInput, MeetingSelect } from "@/components";
 import { useFetchUsers, useForm } from "@/hooks";
+import { Link } from "react-router-dom";
 
 const getMeetingModel = () => ({
   meeting_name: "",
   select_user: "",
+  start_data: "",
 });
 
 const OneOnOneMeeting = () => {
@@ -15,8 +17,10 @@ const OneOnOneMeeting = () => {
     handleInputChange,
   } = useForm(getMeetingModel);
 
+  console.log(values, errors);
+
   return (
-    <div className="flex flex-col gap-3 justify-center items-center py-20">
+    <form className="flex flex-col gap-3 justify-center items-center py-20">
       <MeetingInput
         type="text"
         name="meeting_name"
@@ -39,7 +43,7 @@ const OneOnOneMeeting = () => {
       >
         {users.length === 0 ? (
           <option className="text-s py-1" value={1} disabled>
-            There aren't any options available{" "}
+            There aren't any options available
           </option>
         ) : (
           users.map((user, idx) => (
@@ -49,7 +53,30 @@ const OneOnOneMeeting = () => {
           ))
         )}
       </MeetingSelect>
-    </div>
+      <MeetingDate
+        name="start_data"
+        id="start_data"
+        title="Set Meeting Date"
+        placeholder={"Set Meeting Date..."}
+        onChange={handleInputChange}
+        value={values.start_data}
+        errors={errors.start_data}
+      />
+      <div className="flex justify-between items-center w-full max-w-sm">
+        <button
+          className="text-white px-12 py-2 rounded-xl shadow-lg hover:scale-105 duration-300 bg-blue-600 hover:bg-blue-800"
+          type="submit"
+        >
+          Submit
+        </button>
+        <Link
+          className="text-white px-12 py-2 rounded-xl shadow-lg hover:scale-105 duration-300 bg-red-600 hover:bg-red-800"
+          to="/create-meeting"
+        >
+          Cancel
+        </Link>
+      </div>
+    </form>
   );
 };
 

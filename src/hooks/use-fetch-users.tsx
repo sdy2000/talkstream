@@ -6,7 +6,7 @@ import { useRef } from "@/services";
 import { UserType } from "@/DTOs";
 
 const useFetchUsers = () => {
-  const [users, setusers] = useState<Array<UserType>>([]);
+  const [users, setUsers] = useState<Array<UserType>>([]);
   const uid = useAppSelector((store) => store.auth.userInfo?.uid);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const useFetchUsers = () => {
             label: userData.name,
           });
         });
-        setusers(firebaseUsers);
+        setUsers(firebaseUsers);
       };
       getUsers();
     }
