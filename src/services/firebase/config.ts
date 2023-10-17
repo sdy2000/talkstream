@@ -18,6 +18,7 @@ const firebaseAuth = getAuth(app);
 const firebaseDB = getFirestore(app);
 
 const useRef = collection(firebaseDB, "users");
+const meetingsRef = collection(firebaseDB, "meetings");
 
 export {
   firebaseAuth,
@@ -25,4 +26,5 @@ export {
 
   //firestore Ref
   useRef,
+  meetingsRef,
 };

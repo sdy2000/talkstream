@@ -1,6 +1,12 @@
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { addDoc } from "firebase/firestore";
+
 import { MeetingDate, MeetingInput, MeetingSelect } from "@/components";
-import { useFetchUsers, useForm } from "@/hooks";
-import { Link } from "react-router-dom";
+import { useFetchUsers, useForm, useToast } from "@/hooks";
+import { meetingsRef } from "@/services";
+import { generateMeetingID } from "@/utils";
+import { useAppSelector } from "@/context/hooks";
 
 const getMeetingModel = () => ({
   meeting_name: "",
@@ -9,24 +15,68 @@ const getMeetingModel = () => ({
 });
 
 const OneOnOneMeeting = () => {
+  const uid = useAppSelector((store) => store.auth.userInfo?.uid);
   const [users] = useFetchUsers();
-  const {
-    values,
-    errors,
-    // setErrors,
-    handleInputChange,
-  } = useForm(getMeetingModel);
+  const [createToast] = useToast();
+  const navigate = useNavigate();
+  const { values, errors, setErrors, handleInputChange } =
+    useForm(getMeetingModel);
 
-  console.log(values, errors);
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData);
+
+    if (validate(data)) {
+      const meetingId = generateMeetingID();
+      await addDoc(meetingsRef, {
+        createdBy: uid,
+        meetingId,
+        meetingName: data.meeting_name,
+        meetingType: "1-on-1",
+        invitedUsers: data.select_user,
+        meetingDate: data.start_data,
+        maxUsers: 1,
+        status: true,
+      });
+      createToast({
+        title: "One on One Meeting Created Successfully",
+        type: "green",
+      });
+      navigate("/");
+    }
+  };
+
+  const validate = (data: { [k: string]: FormDataEntryValue }) => {
+    let temp: {
+      meeting_name: string;
+      select_user: string;
+      start_data: string;
+    } = { meeting_name: "", select_user: "", start_data: "" };
+
+    temp.meeting_name =
+      data.meeting_name.length !== 0 ? "" : "Please Enter Meeting Name!";
+    temp.select_user =
+      data.select_user !== "Select a User" ? "" : "Please Enter Meeting User!";
+
+    setErrors(temp);
+
+    return Object.values(temp).every((x) => x === "");
+  };
 
   return (
-    <form className="flex flex-col gap-3 justify-center items-center py-20">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col gap-6 justify-center items-center py-20"
+    >
       <MeetingInput
         type="text"
         name="meeting_name"
         id="meeting_name"
         title="Meeting Name"
         placeholder={"Meeting Name..."}
+        isRequired={false}
         onChange={handleInputChange}
         value={values.meeting_name}
         errors={errors.meeting_name}
