@@ -4,7 +4,13 @@ import { Routes, Route } from "react-router-dom";
 import { HomeLayout } from "@/layouts";
 import { useAppSelector } from "./context/hooks";
 import { changeTheme } from "@/hooks";
-import { Login, Dashboard, OneOnOneMeeting, CreateMeeting } from "@/pages";
+import {
+  Login,
+  Dashboard,
+  OneOnOneMeeting,
+  CreateMeeting,
+  VideoConference,
+} from "@/pages";
 
 function App() {
   //#region Theme Changer
@@ -27,6 +33,7 @@ function App() {
         {/* Create Meeting */}
         <Route path="/create-meeting" element={<CreateMeeting />} />
         <Route path="/one-on-one" element={<OneOnOneMeeting />} />
+        <Route path="/create-video-conference" element={<VideoConference />} />
       </Route>
     </Routes>
   );

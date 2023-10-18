@@ -7,3 +7,9 @@ export interface ToastType {
   title: string;
   color: "green" | "blue" | "yellow" | "red" | undefined;
 }
+export interface UserType {
+  email: string;
+  name: string;
+  uid: string;
+  label?: string;
+}

@@ -14,7 +14,7 @@ const meetingCardData = [
   },
   {
     title: "Create Video Conference",
-    slug: "/my-meeting",
+    slug: "/create-video-conference",
     text: "Invite multiple persons to the meeting.",
     image: meeting2,
   },

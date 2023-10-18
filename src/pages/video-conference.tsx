@@ -1,26 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { addDoc } from "firebase/firestore";
 
-import { MeetingDate, MeetingInput, MeetingSelect } from "@/components";
+import {
+  MeetingDate,
+  MeetingInput,
+  MultiMeetingSelect,
+  ToggleButton,
+} from "@/components";
 import { useFetchUsers, useForm, useToast } from "@/hooks";
 import { meetingsRef } from "@/services";
-import { generateMeetingID } from "@/utils";
+import { UserType, generateMeetingID } from "@/utils";
 import { useAppSelector } from "@/context/hooks";
 
 const getMeetingModel = () => ({
   meeting_name: "",
-  select_user: "",
   start_data: "",
+  size: 1,
 });
 
-const OneOnOneMeeting = () => {
+const VideoConference = () => {
   const uid = useAppSelector((store) => store.auth.userInfo?.uid);
   const [users] = useFetchUsers();
   const [createToast] = useToast();
   const navigate = useNavigate();
   const { values, errors, setErrors, handleInputChange } =
     useForm(getMeetingModel);
+
+  const [selectedUser, setSelectedUser] = useState<Array<UserType>>([]);
+  const [anyoneCanJoin, setAnyoneCanJoin] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,9 +42,11 @@ const OneOnOneMeeting = () => {
         createdBy: uid,
         meetingId,
         meetingName: data.meeting_name,
-        meetingType: "1-on-1",
-        invitedUsers: data.select_user,
-        meetingDate: data.start_data,
+        meetingType: anyoneCanJoin ? "anyone-can-join" : "video-conference",
+        invitedUsers: anyoneCanJoin
+          ? []
+          : selectedUser.map((user: UserType) => user.uid),
+        meetingDate: anyoneCanJoin ? 100 : data.size,
         maxUsers: 1,
         status: true,
       });
@@ -51,25 +61,51 @@ const OneOnOneMeeting = () => {
   const validate = (data: { [k: string]: FormDataEntryValue }) => {
     let temp: {
       meeting_name: string;
-      select_user: string;
+      selected_users: string;
       start_data: string;
-    } = { meeting_name: "", select_user: "", start_data: "" };
+    } = { meeting_name: "", selected_users: "", start_data: "" };
 
     temp.meeting_name =
       data.meeting_name.length !== 0 ? "" : "Please Enter Meeting Name!";
-    temp.select_user =
-      data.select_user !== "Select a User" ? "" : "Please Enter Meeting User!";
+    temp.selected_users =
+      data.selected_users !== "Select a User"
+        ? ""
+        : "Please Enter Meeting User!";
 
     setErrors(temp);
 
     return Object.values(temp).every((x) => x === "");
   };
 
+  const selectUser = (uid: string) => {
+    let addedUser = users.find(
+      (user: UserType | undefined) => user?.uid === uid
+    );
+
+    if (
+      addedUser &&
+      !selectedUser.find((user: UserType) => user.uid === addedUser?.uid)
+    ) {
+      setSelectedUser([...selectedUser, addedUser]);
+    }
+  };
+
+  const removeUser = (uid: string) => {
+    setSelectedUser([
+      ...selectedUser.filter((user: UserType) => user.uid !== uid),
+    ]);
+  };
+
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col gap-6 justify-center items-center py-20"
+      className="flex flex-col gap-6 justify-center items-center py-20 "
     >
+      <ToggleButton
+        isChecked={anyoneCanJoin}
+        onClick={() => setAnyoneCanJoin(!anyoneCanJoin)}
+        text="Anyone can Join"
+      />
       <MeetingInput
         type="text"
         name="meeting_name"
@@ -81,28 +117,44 @@ const OneOnOneMeeting = () => {
         value={values.meeting_name}
         errors={errors.meeting_name}
       />
-      <MeetingSelect
-        name="select_user"
-        id="select_user"
-        title="Invite User"
-        placeholder="Invite User"
-        onChange={handleInputChange}
-        value={values.select_user}
-        errors={errors.select_user}
-        firstOption="Select a User"
-      >
-        {users.length === 0 ? (
-          <option className="text-s py-1" value={1} disabled>
-            There aren't any options available
-          </option>
-        ) : (
-          users.map((user, idx) => (
-            <option value={user.uid} key={idx}>
-              {user.name}
+      {anyoneCanJoin ? (
+        <MeetingInput
+          type="number"
+          name="size"
+          id="size"
+          title="Maximum People"
+          placeholder={"Maximum People..."}
+          isRequired={true}
+          onChange={handleInputChange}
+          value={values.meeting_name}
+          errors={errors.meeting_name}
+        />
+      ) : (
+        <MultiMeetingSelect
+          name="selected_users"
+          id="selected_users"
+          title="Invite User"
+          placeholder="Invite User"
+          selectUser={selectUser}
+          removeUser={removeUser}
+          selectedUser={selectedUser}
+          value={values.selected_users}
+          errors={errors.selected_users}
+          firstOption="Select a User"
+        >
+          {users.length === 0 ? (
+            <option className="text-s py-1" value={1} disabled>
+              There aren't any options available
             </option>
-          ))
-        )}
-      </MeetingSelect>
+          ) : (
+            users.map((user, idx) => (
+              <option value={user.uid} key={idx}>
+                {user.name}
+              </option>
+            ))
+          )}
+        </MultiMeetingSelect>
+      )}
       <MeetingDate
         name="start_data"
         id="start_data"
@@ -129,5 +181,4 @@ const OneOnOneMeeting = () => {
     </form>
   );
 };
-
-export default OneOnOneMeeting;
+export default VideoConference;
