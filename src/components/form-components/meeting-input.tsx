@@ -52,7 +52,7 @@ const MeetingInput = ({
       <div className="flex flex-col w-full h-full">
         <span className="flex justify-between items-center gap-4 pr-3 bg-p rounded-lg shadow-lg border border-dbt">
           <input
-            className={`text-p placeholder:text-t outline-none bg-p px-3 py-2 `}
+            className={`text-p placeholder:text-t outline-none bg-p px-3 py-2 w-full`}
             onFocus={() => {
               setSelectInput(true), setFocusInput(true);
             }}

@@ -16,7 +16,6 @@ import { useAppSelector } from "@/context/hooks";
 const getMeetingModel = () => ({
   meeting_name: "",
   start_data: "",
-  size: 1,
 });
 
 const VideoConference = () => {
@@ -28,6 +27,7 @@ const VideoConference = () => {
     useForm(getMeetingModel);
 
   const [selectedUser, setSelectedUser] = useState<Array<UserType>>([]);
+  const [maxPeople, setMaxPeople] = useState<number>(1);
   const [anyoneCanJoin, setAnyoneCanJoin] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -46,8 +46,8 @@ const VideoConference = () => {
         invitedUsers: anyoneCanJoin
           ? []
           : selectedUser.map((user: UserType) => user.uid),
-        meetingDate: anyoneCanJoin ? 100 : data.size,
-        maxUsers: 1,
+        meetingDate: data.start_data,
+        maxUsers: anyoneCanJoin ? 100 : maxPeople,
         status: true,
       });
       createToast({
@@ -125,9 +125,18 @@ const VideoConference = () => {
           title="Maximum People"
           placeholder={"Maximum People..."}
           isRequired={true}
-          onChange={handleInputChange}
-          value={values.meeting_name}
-          errors={errors.meeting_name}
+          onChange={(e) => {
+            setMaxPeople(
+              parseInt(e.target.value) > 50
+                ? 50
+                : parseInt(e.target.value) <= 0 ||
+                  parseInt(e.target.value) === null
+                ? 1
+                : parseInt(e.target.value)
+            );
+          }}
+          value={maxPeople}
+          errors={errors.size}
         />
       ) : (
         <MultiMeetingSelect
